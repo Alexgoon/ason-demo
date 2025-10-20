@@ -1,0 +1,20 @@
+﻿<div>
+    <DxMenu Orientation="@Orientation.Vertical" CssClass="menu" ItemClick="OnItemClicked">
+        <Items>
+            <DxMenuItem NavigateUrl="/" Text="Home" IconCssClass="icon home-icon" />
+            <DxMenuItem NavigateUrl="/employees" Text="Employees" IconCssClass="icon employees-icon" />
+            <DxMenuItem NavigateUrl="/emails" Text="Emails" IconCssClass="icon emails-icon" />
+            <DxMenuItem NavigateUrl="/charts" Text="Charts" IconCssClass="icon charts-icon" />
+        </Items>
+    </DxMenu>
+</div>
+
+@code {
+    [Parameter] public EventCallback OnNavigate { get; set; }
+
+    async Task OnItemClicked(MenuItemClickEventArgs args)
+    {
+        if (OnNavigate.HasDelegate)
+            await OnNavigate.InvokeAsync();
+    }
+}

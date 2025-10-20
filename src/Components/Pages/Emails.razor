@@ -1,0 +1,70 @@
+@page "/emails"
+@inject SessionState Session
+@using AsonDemo.Ason
+@using DevExpress.Blazor
+
+@if (!_loaded) {
+    <div class="p-3"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>
+}
+else {
+    <div class="emails-root">
+        <h5>Emails</h5>
+        <div class="row" style="height:100%;">
+            <div class="col-5 email-list-container">
+                <DxListBox Data="OrderedEmails"
+                           @bind-Value="_selected"
+                           TData="MailItem" TValue="MailItem"
+                           SizeMode="SizeMode.Small"
+                           CssClass="w-100 h-100"
+                           style="box-shadow: 0px 0px 10px 0px rgba(0,0,0,.05);">
+                    <ItemDisplayTemplate>
+                        <div class="em-row">
+                            <div class="em-line em-from-line d-flex">
+                                <span class="em-from flex-grow-1">@context.DataItem.From</span>
+                                <span class="em-time ms-2">@context.DataItem.ReceivedDate.ToString("MMM d, h:mm tt")</span>
+                            </div>
+                            <div class="em-line em-subj">@context.DataItem.Subject</div>
+                            <div class="em-line em-body">@context.DataItem.Body</div>
+                        </div>
+                    </ItemDisplayTemplate>
+                </DxListBox>
+            </div>
+            <div class="col-7 email-preview-host">
+                @if (_selected is not null) {
+                    <div class="email-preview-card">
+                        <div class="email-preview-subject">@_selected.Subject</div>
+                        <div class="email-preview-main">
+                            <div class="email-preview-header">
+                                <div class="from-row">
+                                    <span class="from-name">@_selected.From</span>
+                                    <span class="received-date">@_selected.ReceivedDate.ToString("ddd M/d/yyyy h:mm tt")</span>
+                                </div>
+                                <div class="to-row">
+                                    <span class="to-label">To:</span>
+                                    <span class="to-list">@string.Join(", ", _selected.To)</span>
+                                </div>
+                            </div>
+                            <div class="email-preview-body" style="white-space:pre-wrap;">@_selected.Body</div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    MailItem? _selected;
+    bool _loaded;
+    IEnumerable<MailItem> OrderedEmails => Session.Emails.OrderByDescending(e => e.ReceivedDate);
+    public List<MailItem> EmailsSnapshot => Session.Emails.ToList();
+
+    protected override async Task OnInitializedAsync() {
+        await Session.EnsureSeededAsync();
+        _selected = Session.Emails.OrderByDescending(e => e.ReceivedDate).FirstOrDefault();
+        _loaded = true;
+        Session.MainAppOperator.AttachChildOperator<EmailsOperator>(this);
+    }
+
+    void Select(MailItem mail) => _selected = mail; // retained for potential external references
+}

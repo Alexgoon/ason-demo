@@ -1,0 +1,102 @@
+.employees-root {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+    padding: 20px;
+}
+
+.toolbar-container{
+    margin: 10px 0 30px;
+    flex: 0 1 auto;
+}
+
+.employees-grid {
+    flex: 1 1 0;
+    min-height: 0;
+    display: flex;
+}
+
+    .employees-grid > * {
+        flex: 1 1 auto;
+        min-height: 0;
+    }
+
+.employees-editor {
+    flex: 1 1 auto;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    margin-top: .5rem
+}
+
+/* Ensure DevExpress grid fills its container */
+.employees-grid .dxbl-grid {
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+    .employees-grid .dxbl-grid .dxbl-grid-content {
+        flex: 1 1 auto;
+        min-height: 0;
+    }
+
+/* Grid + auto-height editor layout */
+.employees-shell {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.employees-grid-container {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+}
+
+    .employees-grid-container > * {
+        flex: 1 1 auto;
+        min-height: 0;
+    }
+/* Editor sits after grid and takes only needed height; grid shrinks accordingly */
+.employees-editor-auto {
+    flex: 0 0 auto;
+    padding: .5rem;
+    border: 1px solid var(--bs-border-color,#dcdcdc);
+    border-radius: 4px;
+    box-shadow: 0 2px 4px -2px rgba(0,0,0,.07);
+    margin-top: 10px;
+}
+
+    /* When multiple tabs, allow their internal content to size naturally; prevent overall scroll cutoff */
+    .employees-editor-auto .dxbl-tabs {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .employees-editor-auto .dxbl-tab-panel {
+        display: flex;
+        flex-direction: column;
+    }
+
+/* Remove previous splitter / shared styles no longer used */
+.employees-splitter, .employees-splitter .dxbl-splitter { /* deprecated */
+}
+
+
+.tb-icon2 {
+    width: 24px !important;
+    height: 24px !important;
+    background-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    background-position: center center;
+    background-color: currentColor;
+    opacity: 1;
+}
+

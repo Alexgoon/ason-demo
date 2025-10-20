@@ -1,0 +1,135 @@
+@using AsonDemo.Ason
+@using AsonDemo.Model
+@inject SessionState Session
+@implements IDisposable
+
+<style>
+    /* Local styles to align Sales toolbar on the right side of the group header */
+    .sales-group-header {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+
+        .sales-group-header > strong {
+            font-weight: 600;
+        }
+
+        .sales-group-header .dxbl-toolbar, .sales-group-header .dxbl-tb {
+            margin-left: auto;
+        }
+</style>
+
+<div class="p-2" style="display:flex;flex-direction:column;gap:.75rem;">
+    <div class="row g-2">
+
+        <DxFormLayout CssClass="w-100" CaptionPosition="CaptionPosition.Horizontal">
+            <DxFormLayoutGroup Caption="Employee Info" ColSpanMd="6">
+                <DxFormLayoutItem Caption="First Name:" ColSpanMd="6" ColSpanXs="12">
+                    <DxTextBox @bind-Text="Model.Editable.FirstName" />
+                </DxFormLayoutItem>
+                <DxFormLayoutItem Caption="Last Name:" ColSpanMd="6" ColSpanXs="12">
+                    <DxTextBox @bind-Text="Model.Editable.LastName" />
+                </DxFormLayoutItem>
+                <DxFormLayoutItem Caption="Email:" ColSpanMd="12">
+                    <DxTextBox @bind-Text="Model.Editable.Email" />
+                </DxFormLayoutItem>
+                <DxFormLayoutItem Caption="Position:" ColSpanMd="12">
+                    <DxTextBox @bind-Text="Model.Editable.Position" />
+                </DxFormLayoutItem>
+                <DxFormLayoutItem Caption="Hire Date:" ColSpanMd="12">
+                    <DxDateEdit @bind-Date="Model.Editable.HireDate" ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Never" />
+                </DxFormLayoutItem>
+            </DxFormLayoutGroup>
+            <DxFormLayoutGroup ColSpanMd="6">
+                <HeaderContentTemplate>
+                    <div class="sales-group-header">
+                        <strong>Sales</strong>
+                        <DxToolbar ItemRenderStyleMode="ToolbarRenderStyleMode.Plain">
+                            <Items>
+                                <DxToolbarItem Click="AddSale" Text="Add" IconUrl="/images/add.svg" Alignment="ToolbarItemAlignment.Right" />
+                                <DxToolbarItem Click="DeleteSale" Text="Delete" Enabled="_selectedDataItem is not null" IconUrl="/images/delete.svg" Alignment="ToolbarItemAlignment.Right" />
+                            </Items>
+                        </DxToolbar>
+                    </div>
+                </HeaderContentTemplate>
+                <Items>
+                    <DxFormLayoutItem ColSpanMd="12">
+                        <DxGrid Data="Model.Editable.Sales"
+                                SelectionMode="GridSelectionMode.Single"
+                                HighlightRowOnHover="true"
+                                AllowSelectRowByClick="true"
+                                KeyFieldName="Id"
+                                PageSize="4"
+                                EditMode="GridEditMode.EditCell"
+                                EditModelSaving="Grid_EditModelSaving"
+                                DataItemDeleting="Grid_DataItemDeleting"
+                                @bind-SelectedDataItem="@_selectedDataItem">
+                            <Columns>
+                                <DxGridDataColumn FieldName="ProductName" Width="180px" />
+                                <DxGridDataColumn FieldName="Quantity" Width="80px" />
+                                <DxGridDataColumn FieldName="Price" Width="110px" DisplayFormat="c" />
+                                <DxGridDataColumn FieldName="SaleDate" DisplayFormat="d" />
+                            </Columns>
+                        </DxGrid>
+                    </DxFormLayoutItem>
+                    <DxFormLayoutItem ColSpanMd="12">
+                        <div class="text-end">
+                            <DxButton Text="Cancel" Click="() => OnClose?.Invoke(Model)" RenderStyle="ButtonRenderStyle.Secondary" />
+                            <DxButton Text="Save" Click="() => OnSave?.Invoke(Model)" RenderStyle="ButtonRenderStyle.Primary" />
+                        </div>
+                    </DxFormLayoutItem>
+                </Items>
+            </DxFormLayoutGroup>
+        </DxFormLayout>
+    </div>
+</div>
+
+@code {
+    [Parameter] public EmployeeEditModel Model { get; set; } = default!;
+    [Parameter] public Action<EmployeeEditModel>? OnSave { get; set; }
+    [Parameter] public Action<EmployeeEditModel>? OnClose { get; set; }
+
+    object? _selectedDataItemBacking;
+    object? _selectedDataItem {
+        get => _selectedDataItemBacking;
+        set {
+            _selectedDataItemBacking = value;
+            Model.SelectedSale = value as Sale;
+        }
+    }
+
+    void AddSale() {
+        int nextId = Model.Editable.Sales.Any() ? Model.Editable.Sales.Max(s => s.Id) + 1 : 1;
+        Model.Editable.Sales.Add(new Sale { Id = nextId, ProductName = "Product", Quantity = 1, Price = 100, SaleDate = DateTime.Today });
+        StateHasChanged();
+    }
+    void DeleteSale() {
+        if (Model.SelectedSale is null) return;
+        var index = Model.Editable.Sales.Select((item, i) => new { Item = item, Index = i })
+                            .FirstOrDefault(x => x.Item.Id == Model.SelectedSale.Id)?.Index ?? -1;
+        Model.Editable.Sales.RemoveAt(index);
+        Model.SelectedSale = null;
+        _selectedDataItemBacking = null;
+        StateHasChanged();
+    }
+
+    protected override void OnInitialized() {
+        Model.StateChanged += StateHasChanged;
+    }
+    void Grid_EditModelSaving(GridEditModelSavingEventArgs e) {
+        var saleItem = (Sale)e.EditModel;
+        var index = Model.Editable.Sales.Select((item, i) => new { Item = item, Index = i })
+                                    .FirstOrDefault(x => x.Item.Id == saleItem.Id)?.Index ?? -1;
+        Model.Editable.Sales[index] = saleItem;
+    }
+    public void Dispose() {
+        Model.StateChanged -= StateHasChanged;
+    }
+    void Grid_DataItemDeleting(GridDataItemDeletingEventArgs e) {
+        // var saleItem = (Sale)e.DataItem;
+        // var index = Model.Editable.Sales.Select((item, i) => new { Item = item, Index = i })
+        //                             .FirstOrDefault(x => x.Item.Id == saleItem.Id)?.Index ?? -1;
+        // Model.Editable.Sales.RemoveAt(index);
+    }
+}

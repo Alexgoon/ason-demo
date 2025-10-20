@@ -1,0 +1,184 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Russkov.Alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2E49971A-A2C4-6FD7-5D45-A9AC18A446EF}|AsonDemo.csproj|c:\\users\\russkov.alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\services\\openaiservicesettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E49971A-A2C4-6FD7-5D45-A9AC18A446EF}|AsonDemo.csproj|solutionrelative:services\\openaiservicesettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E49971A-A2C4-6FD7-5D45-A9AC18A446EF}|AsonDemo.csproj|c:\\users\\russkov.alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\asondemo.csproj.backup.tmp||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{2E49971A-A2C4-6FD7-5D45-A9AC18A446EF}|AsonDemo.csproj|solutionrelative:asondemo.csproj.backup.tmp||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E49971A-A2C4-6FD7-5D45-A9AC18A446EF}|AsonDemo.csproj|c:\\users\\russkov.alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\asondemo.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{2E49971A-A2C4-6FD7-5D45-A9AC18A446EF}|AsonDemo.csproj|solutionrelative:asondemo.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E49971A-A2C4-6FD7-5D45-A9AC18A446EF}|AsonDemo.csproj|c:\\users\\russkov.alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{2E49971A-A2C4-6FD7-5D45-A9AC18A446EF}|AsonDemo.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E49971A-A2C4-6FD7-5D45-A9AC18A446EF}|AsonDemo.csproj|c:\\users\\russkov.alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{2E49971A-A2C4-6FD7-5D45-A9AC18A446EF}|AsonDemo.csproj|solutionrelative:components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E49971A-A2C4-6FD7-5D45-A9AC18A446EF}|AsonDemo.csproj|c:\\users\\russkov.alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\components\\pages\\index.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{2E49971A-A2C4-6FD7-5D45-A9AC18A446EF}|AsonDemo.csproj|solutionrelative:components\\pages\\index.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E49971A-A2C4-6FD7-5D45-A9AC18A446EF}|AsonDemo.csproj|c:\\users\\russkov.alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\wwwroot\\css\\bootstrap\\bootstrap.min.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{2E49971A-A2C4-6FD7-5D45-A9AC18A446EF}|AsonDemo.csproj|solutionrelative:wwwroot\\css\\bootstrap\\bootstrap.min.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E49971A-A2C4-6FD7-5D45-A9AC18A446EF}|AsonDemo.csproj|c:\\users\\russkov.alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\wwwroot\\css\\bootstrap\\bootstrap.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{2E49971A-A2C4-6FD7-5D45-A9AC18A446EF}|AsonDemo.csproj|solutionrelative:wwwroot\\css\\bootstrap\\bootstrap.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E49971A-A2C4-6FD7-5D45-A9AC18A446EF}|AsonDemo.csproj|c:\\users\\russkov.alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\components\\pages\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{2E49971A-A2C4-6FD7-5D45-A9AC18A446EF}|AsonDemo.csproj|solutionrelative:components\\pages\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E49971A-A2C4-6FD7-5D45-A9AC18A446EF}|AsonDemo.csproj|c:\\users\\russkov.alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\services\\dxthemes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E49971A-A2C4-6FD7-5D45-A9AC18A446EF}|AsonDemo.csproj|solutionrelative:services\\dxthemes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "OpenAIServiceSettings.cs",
+              "DocumentMoniker": "C:\\Users\\Russkov.Alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\Services\\OpenAIServiceSettings.cs",
+              "RelativeDocumentMoniker": "Services\\OpenAIServiceSettings.cs",
+              "ToolTip": "C:\\Users\\Russkov.Alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\Services\\OpenAIServiceSettings.cs",
+              "RelativeToolTip": "Services\\OpenAIServiceSettings.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-20T10:47:17.277Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AsonDemo.csproj.Backup.tmp",
+              "DocumentMoniker": "C:\\Users\\Russkov.Alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\AsonDemo.csproj.Backup.tmp",
+              "RelativeDocumentMoniker": "AsonDemo.csproj.Backup.tmp",
+              "ToolTip": "C:\\Users\\Russkov.Alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\AsonDemo.csproj.Backup.tmp",
+              "RelativeToolTip": "AsonDemo.csproj.Backup.tmp",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAAAAsAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-10-20T10:47:16.005Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\Russkov.Alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\Russkov.Alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-20T10:42:59.328Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MainLayout.razor",
+              "DocumentMoniker": "C:\\Users\\Russkov.Alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\Components\\Layout\\MainLayout.razor",
+              "RelativeDocumentMoniker": "Components\\Layout\\MainLayout.razor",
+              "ToolTip": "C:\\Users\\Russkov.Alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\Components\\Layout\\MainLayout.razor",
+              "RelativeToolTip": "Components\\Layout\\MainLayout.razor",
+              "ViewState": "AgIAAHMAAAAAAAAAAAAAAHwAAABoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-20T10:38:12.275Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Index.razor.css",
+              "DocumentMoniker": "C:\\Users\\Russkov.Alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\Components\\Pages\\Index.razor.css",
+              "RelativeDocumentMoniker": "Components\\Pages\\Index.razor.css",
+              "ToolTip": "C:\\Users\\Russkov.Alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\Components\\Pages\\Index.razor.css",
+              "RelativeToolTip": "Components\\Pages\\Index.razor.css",
+              "ViewState": "AgIAAL4AAAAAAAAAAAAgwM4AAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-10-20T10:38:06.686Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "bootstrap.min.css",
+              "DocumentMoniker": "C:\\Users\\Russkov.Alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\bootstrap\\bootstrap.min.css",
+              "ToolTip": "C:\\Users\\Russkov.Alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+              "RelativeToolTip": "wwwroot\\css\\bootstrap\\bootstrap.min.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-10-20T10:38:04.285Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "bootstrap.css",
+              "DocumentMoniker": "C:\\Users\\Russkov.Alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\wwwroot\\css\\bootstrap\\bootstrap.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\bootstrap\\bootstrap.css",
+              "ToolTip": "C:\\Users\\Russkov.Alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\wwwroot\\css\\bootstrap\\bootstrap.css",
+              "RelativeToolTip": "wwwroot\\css\\bootstrap\\bootstrap.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-10-20T10:38:02.084Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Index.razor",
+              "DocumentMoniker": "C:\\Users\\Russkov.Alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\Components\\Pages\\Index.razor",
+              "RelativeDocumentMoniker": "Components\\Pages\\Index.razor",
+              "ToolTip": "C:\\Users\\Russkov.Alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\Components\\Pages\\Index.razor",
+              "RelativeToolTip": "Components\\Pages\\Index.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-20T10:37:41.9Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "DxThemes.cs",
+              "DocumentMoniker": "C:\\Users\\Russkov.Alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\Services\\DxThemes.cs",
+              "RelativeDocumentMoniker": "Services\\DxThemes.cs",
+              "ToolTip": "C:\\Users\\Russkov.Alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\Services\\DxThemes.cs",
+              "RelativeToolTip": "Services\\DxThemes.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAA1wBwAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-20T09:47:26.948Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AsonDemo.csproj",
+              "DocumentMoniker": "C:\\Users\\Russkov.Alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\AsonDemo.csproj",
+              "RelativeDocumentMoniker": "AsonDemo.csproj",
+              "ToolTip": "C:\\Users\\Russkov.Alexander\\source\\repos\\ason-demo-repo\\ason-demo\\src\\AsonDemo.csproj",
+              "RelativeToolTip": "AsonDemo.csproj",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAAAA0AAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-10-20T09:46:46.457Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

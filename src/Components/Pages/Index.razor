@@ -1,0 +1,68 @@
+﻿@page "/"
+<PageTitle>Home</PageTitle>
+
+<header class="home-hero">
+    <div class="hero-container">
+        <div class="hero-left-block">
+            <div class="hero-title">Agent Script Operation</div>
+            <div class="hero-note">Supercharged AI Integration ⚡</div>
+        </div>
+        <a class="github-btn" href="https://github.com/Alexgoon/ason" target="_blank" rel="noopener" title="Star us on GitHub">
+            <span style="font-size:1rem;line-height:1">&#9733;</span>
+            <span>Star us on GitHub</span>
+        </a>
+    </div>
+</header>
+
+<section class="prompt-section">
+    @for (var i = 0; i < Groups.Count; i++) {
+        var group = Groups[i];
+        <div class="prompt-group">
+            <h6 class="prompt-group-title">@group.Title</h6>
+            <div class="row g-3">
+                @foreach (var p in group.Prompts) {
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="card prompt-card" @onclick="() => UsePrompt(p)">
+                            <div class="card-body prompt-text">@p</div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        @if (i < Groups.Count - 1) {
+            <hr class="group-separator" />
+        }
+    }
+</section>
+
+@code {
+    [CascadingParameter] public DxAIChat? Chat { get; set; }
+    [CascadingParameter(Name = "OpenChatAction")] public Action? OpenChat { get; set; }
+
+    private record PromptGroup(string Title, IReadOnlyList<string> Prompts);
+
+    private List<PromptGroup> Groups = new()
+    {
+        new("Modify", new [] {
+            "Set the position of all employees hired in 2025 to Intern",
+            "Add 4 employees: Laura Bennett, Marcus Hayes, Sophia Ramirez, and Daniel Foster",
+            "Add a new employee based on info from the last received email. Leave missing employee fields blank",
+            "Add a sale to Bobby Star: 10 Training Sessions sold today at $629 each"}),
+        new("Visualize", new [] {
+            "Show a chart of the top 5 performers from the past year",
+            "Plot a monthly sales trend of all employees since Bobby Star was hired (for each month)",
+            "Create a chart showing each product’s share of sales made in December 2024",
+            "Show a chart of employees grouped by years of experience" }),
+        new("Ask", new [] {
+            "How many emails did I receive in the last 3 days?",
+            "What was the largest sale last month?",
+            "How many emails did I receive from the '@acme.com' domain?",
+            "Can you create a spaceship?" }),
+    };
+
+    private async Task UsePrompt(string prompt) {
+        if (string.IsNullOrWhiteSpace(prompt) || Chat is null) return;
+        OpenChat?.Invoke(); 
+        await Chat.SendMessage(prompt, Microsoft.Extensions.AI.ChatRole.User);
+    }
+}

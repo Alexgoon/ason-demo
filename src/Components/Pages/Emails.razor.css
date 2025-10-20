@@ -1,0 +1,207 @@
+/* Email list item styles */
+.email-item {
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: .82rem;
+    line-height: 1.05rem;
+    border-bottom: 1px solid #eee;
+}
+
+    .email-item:last-child {
+        border-bottom: none;
+    }
+
+.email-line {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.email-from {
+    font-size: .85rem;
+}
+
+.email-time {
+    font-size: .7rem;
+    color: #555;
+    white-space: nowrap;
+}
+
+.email-subject {
+    color: #222;
+}
+
+.email-body {
+    color: #555;
+}
+
+.emails-root {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: 20px;
+}
+
+/* Consolidated em-row styles (removed duplicate definition) */
+.em-row {
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: .95rem;
+    line-height: 1.2rem;
+    border-bottom: 1px solid #eee;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+    .em-row:last-child {
+        border-bottom: none;
+    }
+
+.em-line {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    min-width: 0;
+}
+
+.em-from-line {
+    font-size: 1rem;
+    display: flex;
+    min-width: 0;
+}
+
+.em-time {
+    font-size: .85rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.em-subj {
+    font-size: .85rem;
+}
+
+.em-body {
+    font-size: .85rem;
+    font-weight: 200;
+}
+
+/* --- DevExpress DxListBox width constraint fixes --- */
+/* Root list box already has overflow-x:hidden; ensure descendants cannot expand it */
+::deep .dxbl-list-box {
+    overflow-x: hidden;
+}
+    /* Force scroll-viewer content to not allow child intrinsic width expansion */
+    ::deep .dxbl-list-box .dxbl-scroll-viewer-content {
+        width: 100% !important;
+        min-width: 0;
+    }
+    /* The internal UL is flex by default (causing it to size to widest child). Make it block so it shrinks to container. */
+    ::deep .dxbl-list-box .dxbl-list-box-container-no-scroll {
+        display: block !important;
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+        /* Each LI should also be block and constrained */
+        ::deep .dxbl-list-box .dxbl-list-box-container-no-scroll > li {
+            display: block !important;
+            width: 100% !important;
+            min-width: 0 !important;
+        }
+    /* Template container should not introduce extra width */
+    ::deep .dxbl-list-box .dxbl-list-box-item-display-template-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+    /* Generic item container width constraints */
+    ::deep .dxbl-list-box .dxbl-list-box-item,
+    ::deep .dxbl-list-box .dxbl-list-box-item .dxbl-lbi-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box;
+        min-width: 0;
+    }
+    /* Ensure any flex ancestors can shrink */
+    ::deep .dxbl-list-box .dxbl-list-box-scroll-viewer,
+    ::deep .dxbl-list-box .dxbl-list-box-item,
+    ::deep .dxbl-list-box .dxbl-lbi-content {
+        min-width: 0;
+    }
+
+
+/* Email preview layout */
+.email-preview-host { height:100%; }
+.email-preview-card { 
+    display:flex;
+    flex-direction:column;
+    height:100%;
+    border-radius:4px;
+    background:var(--bs-body-bg,#fff);
+    font-size:.95rem;
+}
+.email-preview-subject {
+    font-weight: 600;
+    padding: 6px 10px;
+    border: 1px solid var(--bs-border-color,#dcdcdc);
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px -2px rgba(0,0,0,.07);
+}
+.email-preview-main {
+    margin: 0 0 0 0;
+    padding: 14px 18px 20px 18px;
+    overflow: auto;
+    display: flex;
+    border: 1px solid var(--bs-border-color,#dcdcdc);
+    flex-direction: column;
+    border-radius: 4px;
+    margin: 10px 0 0 0;
+    gap: 14px;
+    box-shadow: 0 2px 6px 0px rgba(0,0,0,.07);
+}
+.email-preview-header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: .85rem;
+}
+
+.email-list-shadow {
+    box-shadow: 4px 4px 10px 0px rgba(0,0,0,.9);
+}
+email-list-container {
+    height: 100%;
+    min-height: 0;
+}
+.from-row { 
+    display:flex; 
+    align-items:center; 
+    gap:10px; 
+    font-size:.9rem; 
+}
+.from-name { font-weight:600; }
+.received-date { margin-left:auto; color:#666; font-size:.8rem; white-space:nowrap; }
+.to-row { display:flex; gap:4px; flex-wrap:wrap; }
+.to-label { font-weight:600; color:#444; }
+.to-list { color:#333; }
+.email-preview-body { 
+    font-size:.9rem; 
+    line-height:1.25rem; 
+    color:#222; 
+}
+
+/* Dark mode adjustments */
+:root[data-bs-theme="dark"] .email-preview-card { background:#1f1f1f; border-color:#333; }
+:root[data-bs-theme="dark"] .email-preview-subject { background:linear-gradient(#2a2a2a,#252525); border-color:#333; }
+:root[data-bs-theme="dark"] .received-date { color:#aaa; }
+:root[data-bs-theme="dark"] .to-label { color:#bbb; }
+:root[data-bs-theme="dark"] .email-preview-body { color:#ddd; }

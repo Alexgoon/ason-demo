@@ -1,0 +1,144 @@
+﻿@inherits LayoutComponentBase
+@inject SessionState Session
+@inject NavigationManager Nav
+@inject IJSRuntime JS
+
+<style>
+    :root {
+        --layout-chrome-bg: #f3f3f3;
+        --transition-fast: .25s cubic-bezier(.4,0,.2,1);
+    }
+
+    .chat-panel-host .dxbl-chatui-root {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        height: 100%;
+        width: 100%;
+    }
+
+    .chat-panel-host .dxbl-chatui-messages {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: auto;
+    }
+
+    .chat-panel-host .dxbl-chatui-submitarea-container {
+        flex-shrink: 0;
+    }
+
+    /* Stage 1: Collapse navigation first (below 1100px) */
+
+</style>
+
+<div class="@RootCss">
+    <div class="header-bar">
+        <button type="button" class="nav-collapse-toggle" title="Menu" aria-label="Toggle navigation" aria-controls="sideNav" @onclick="ToggleNav" aria-expanded="@NavOpen.ToString().ToLower()">☰</button>
+        <div class="header-brand" @onclick='() => Nav.NavigateTo("/")' title="Go Home" role="button" tabindex="0" @onkeydown="OnBrandKeyDown">
+            <img src="images/ason_logo_small.jpeg" alt="Ason" class="header-logo" />
+            <span class="header-demo-text">Demo</span>
+        </div>
+        <div class="header-actions">
+            <button class="docs-link hide-on-chat" @onclick="OpenDocs">Docs</button>
+            <DxButton CssClass="hide-on-chat" Size="ButtonSize.Small" Click="OpenGitHub">
+                <img src="images/github-mark-white.svg" alt="GitHub" class="github-btn-icon" />
+                <span>GitHub</span>
+            </DxButton>
+            <button type="button" class="chat-toggle" title="Chat" aria-label="Toggle chat panel" aria-controls="chatPanel" @onclick="ToggleChat" aria-expanded="@ChatOpen.ToString().ToLower()">💬</button>
+        </div>
+    </div>
+    <div class="@OverlayCss" @onclick="CloseOverlays"></div>
+    <CascadingValue Value="@((Action)EnsureChatOpen)" Name="OpenChatAction">
+        <CascadingValue Value="@ChatRef">
+            <div class="main-row">
+                <div id="sideNav" class="@SideNavCss">
+                    <NavMenu OnNavigate="HandleNavMenuNavigate" />
+                </div>
+                <div style="flex:1 1 0;display:flex;flex-direction:column;overflow:hidden;min-width:0;">
+                    <div style="flex:1 1 0;overflow:auto;padding:1rem;min-width:0;">
+                        @Body
+                    </div>
+                </div>
+                <div id="chatPanel" class="@ChatPanelCss">
+                    <div class="chat-panel-host">
+                        <DxAIChat UseStreaming="true" @ref="ChatRef" CssClass="chat-control" />
+                    </div>
+                </div>
+            </div>
+        </CascadingValue>
+    </CascadingValue>
+</div>
+
+@code {
+    DxAIChat? ChatRef;
+    bool NavOpen; bool ChatOpen;
+    // True when viewport <= 1000px (chat panel becomes collapsible/slide-in)
+    bool IsChatCollapsible; 
+    bool OverlayVisible => NavOpen || (ChatOpen && IsChatCollapsible);
+    bool BodyScrollLocked => NavOpen; // lock scroll only when nav open
+
+    DotNetObjectReference<MainLayout>? _selfRef;
+    IJSObjectReference? _layoutModule; IJSObjectReference? _layoutHandle;
+
+    string RootCss => $"app-root{(BodyScrollLocked ? " no-scroll" : string.Empty)}";
+    string SideNavCss => $"side-nav{(NavOpen ? " open" : string.Empty)}";
+    string ChatPanelCss => $"chat-panel-wrapper{(ChatOpen ? " open" : string.Empty)}";
+    string OverlayCss => $"overlay-shade{(OverlayVisible ? " visible" : string.Empty)}";
+
+    void ToggleNav() {
+        if (!NavOpen) ChatOpen = false;
+        NavOpen = !NavOpen;
+    }
+    void ToggleChat() {
+        if (NavOpen) NavOpen = false;
+        ChatOpen = !ChatOpen;
+    }
+    void CloseOverlays() {
+        NavOpen = false;
+        ChatOpen = false;
+    }
+    void HandleNavMenuNavigate() { NavOpen = false; StateHasChanged(); }
+
+    void EnsureChatOpen() {
+        if (NavOpen) NavOpen = false;
+        if (!ChatOpen) {
+            ChatOpen = true;
+            StateHasChanged();
+        }
+    }
+
+    [JSInvokable]
+    public void SetChatCollapsible(bool value) {
+        if (IsChatCollapsible != value) {
+            IsChatCollapsible = value;
+            // If chat just became inline (not collapsible) we should hide overlay
+            StateHasChanged();
+        }
+    }
+
+    protected override async void OnAfterRender(bool firstRender) {
+        if (firstRender) {
+            if (ChatRef is not null) { StateHasChanged(); }
+            _selfRef = DotNetObjectReference.Create(this);
+            _layoutModule = await JS.InvokeAsync<IJSObjectReference>("import", "./js/layout.js");
+            _layoutHandle = await _layoutModule.InvokeAsync<IJSObjectReference>("initLayout", _selfRef);
+        }
+    }
+
+    public async ValueTask DisposeAsync() {
+        try {
+            if (_layoutHandle is not null) {
+                await _layoutHandle.InvokeVoidAsync("dispose");
+            }
+            _selfRef?.Dispose();
+        } catch { }
+    }
+
+    void OnBrandKeyDown(KeyboardEventArgs e) {
+        if (e.Key == "Enter" || e.Key == " ")
+            Nav.NavigateTo("/");
+    }
+    void OpenDocs() => Nav.NavigateTo("https://github.com/Alexgoon/ason", true);
+    void OpenGitHub() => Nav.NavigateTo("https://github.com/Alexgoon/ason", true);
+}

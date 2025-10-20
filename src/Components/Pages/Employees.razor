@@ -1,0 +1,184 @@
+@page "/employees"
+@inject SessionState Session
+@implements IDisposable
+@using AsonDemo.Ason
+@using DevExpress.Data.Filtering
+
+@if (!_loaded) {
+    <div class="p-3"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>
+}
+else {
+    <div class="employees-root">
+        <h5>Employees</h5>
+        <div class="toolbar-container">
+            <DxToolbar ItemRenderStyleMode="ToolbarRenderStyleMode.Plain">
+                <Items>
+                    <DxToolbarItem Click="AddEmptyEmployee"
+                                   Text="Add"
+                                   IconCssClass="tb-icon"
+                                   IconUrl="/images/add.svg" />
+                    <DxToolbarItem Click="EditSelected"
+                                   Text="Edit"
+                                   Enabled="_selectedDataItem is not null"
+                                   IconCssClass="tb-icon"
+                                   IconUrl="/images/edit.svg" />
+                    <DxToolbarItem Click="DeleteSelected"
+                                   Text="Delete"
+                                   Enabled="_selectedDataItem is not null"
+                                   IconCssClass="tb-icon"
+                                   IconUrl="/images/delete.svg" />
+                    <DxToolbarItem Click="SaveAndCloseAll"
+                                   Text="Save All"
+                                   Enabled="_editing.Count > 0"
+                                   RenderStyle="ButtonRenderStyle.Primary"
+                                   IconCssClass="tb-icon"
+                                   BeginGroup="true"
+                                   IconUrl="/images/save_all.svg" />
+                </Items>
+            </DxToolbar>
+        </div>
+        <div class="employees-shell">
+            <div class="employees-grid-container"
+                 style="box-shadow: 0px 0px 8px 0px rgba(0,0,0,.04);">
+                <DxGrid Data="Session.Employees"
+                        SelectionMode="GridSelectionMode.Single"
+                        HighlightRowOnHover="true"
+                        AllowSelectRowByClick="true"
+                        VirtualScrollingEnabled="true"
+                        AutoCollapseDetailRow="true"
+                        @ref="_grid"
+                        @bind-SelectedDataItem="@_selectedDataItem">
+                    <DetailRowTemplate>
+                        <span class="fw-semibold d-block mb-1">Sales</span>
+                        <DxGrid Data="((Employee)context.DataItem).Sales"
+                                ColumnResizeMode="GridColumnResizeMode.NextColumn"
+                                PageSize="5"
+                                CssClass="w-100">
+                            <Columns>
+                                <DxGridDataColumn FieldName="ProductName" />
+                                <DxGridDataColumn FieldName="Quantity" Width="100px" />
+                                <DxGridDataColumn FieldName="Price" DisplayFormat="c" />
+                                <DxGridDataColumn FieldName="SaleDate" DisplayFormat="d" SortIndex="0" SortOrder="GridColumnSortOrder.Descending" />
+                            </Columns>
+                        </DxGrid>
+                    </DetailRowTemplate>
+                    <Columns>
+                        <DxGridDataColumn FieldName="FirstName" Width="140px" />
+                        <DxGridDataColumn FieldName="LastName" Width="140px" />
+                        <DxGridDataColumn FieldName="Email" />
+                        <DxGridDataColumn FieldName="Position" Width="250px" />
+                        <DxGridDataColumn FieldName="HireDate" DisplayFormat="d" Width="120px" />
+                    </Columns>
+                </DxGrid>
+            </div>
+            @if (_editing.Count > 0) {
+                <div class="employees-editor-auto">
+                    <DxTabs @bind-ActiveTabIndex="_activeTabIndex" CssClass="flex-column d-flex" AllowTabReorder="true">
+                        @for (int i = 0; i < _editing.Count; i++) {
+                            var m = _editing[i];
+                            <DxTabPage Text="@m.Editable.FirstName">
+                                <EmployeeEditorTabPanel Model="m" OnSave="Save" OnClose="Close" />
+                            </DxTabPage>
+                        }
+                    </DxTabs>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+@code {
+    DxGrid? _grid;
+
+    bool _loaded;
+    List<EmployeeEditModel> _editing = new();
+    int _activeTabIndex;
+    object? _selectedDataItem;
+    Employee? _selectedEmployee => _selectedDataItem as Employee;
+
+    public List<Employee> EmployeesSnapshot => Session.Employees.ToList();
+
+    protected override async Task OnInitializedAsync() {
+        await Session.EnsureSeededAsync();
+        _loaded = true;
+        Session.MainAppOperator.AttachChildOperator<EmployeesOperator>(this);
+    }
+
+    public void Dispose() => Session.MainAppOperator.DetachChildOperator<EmployeesOperator>();
+
+    void AddEmptyEmployee() => AddEmployee(null);
+
+    public void AddEmployee(Employee? baseEmployee) {
+        var nextId = Session.Employees.Any() ? Session.Employees.Max(e => e.Id) + 1 : 1;
+        var emp = baseEmployee is null ? new Employee { Id = nextId, HireDate = DateTime.Today } : new Employee {
+            Id = baseEmployee.Id,
+            FirstName = baseEmployee.FirstName,
+            LastName = baseEmployee.LastName,
+            Email = baseEmployee.Email,
+            Position = baseEmployee.Position,
+            HireDate = baseEmployee.HireDate,
+            Sales = baseEmployee.Sales?.Select(s => new Sale { Id = s.Id, ProductName = s.ProductName, Quantity = s.Quantity, Price = s.Price, SaleDate = s.SaleDate }).ToList() ?? new List<Sale>()
+        };
+        OpenEditor(emp, true);
+        StateHasChanged();
+    }
+
+    public void DeleteEmployee(int id) {
+        var edit = _editing.FirstOrDefault(e => e.Original.Id == id);
+        if (edit != null)
+            _editing.Remove(edit);
+        var emp = Session.Employees.FirstOrDefault(e => e.Id == id);
+        if (emp != null)
+            Session.Employees.Remove(emp);
+        _selectedDataItem = null;
+    }
+
+    public void FilterData(string filterString) {
+        _grid?.SetFilterCriteria(CriteriaOperator.Parse(filterString));
+    }
+
+    void EditSelected() {
+        if (_selectedEmployee != null)
+            OpenEditor(_selectedEmployee, false);
+    }
+    void DeleteSelected() {
+        if (_selectedEmployee != null)
+            DeleteEmployee(_selectedEmployee.Id);
+    }
+
+    public void OpenEditor(int employeeId) {
+        var emp = Session.Employees.FirstOrDefault(e => e.Id == employeeId);
+        if (emp != null) OpenEditor(emp, false);
+    }
+
+    void OpenEditor(Employee emp, bool isNew) {
+        if (_editing.Any(e => e.Original == emp)) {
+            _activeTabIndex = _editing.FindIndex(e => e.Original == emp);
+            StateHasChanged();
+            return;
+        }
+        var model = new EmployeeEditModel(emp, isNew, Session.Employees, Session.MainAppOperator);
+        _editing.Add(model);
+        _activeTabIndex = _editing.Count - 1;
+        StateHasChanged();
+    }
+
+    void Save(EmployeeEditModel model) {
+        model.Apply();
+        Close(model);
+    }
+    void Close(EmployeeEditModel model) {
+        _editing.Remove(model);
+        if (_activeTabIndex >= _editing.Count)
+            _activeTabIndex = _editing.Count - 1;
+        StateHasChanged();
+        Session.MainAppOperator.DetachChildOperator<EmployeeEditViewOperator>(model.Original.Id.ToString());
+    }
+    void SaveAndCloseAll() {
+        foreach (var m in _editing.ToList()) {
+            m.Apply();
+            _editing.Remove(m);
+        }
+        _activeTabIndex = 0;
+    }
+}

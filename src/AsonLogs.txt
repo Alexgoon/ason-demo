@@ -1,0 +1,20 @@
+### ReceptionAgent input:
+[user] Set the position of all employees hired in 2025 to Intern
+### ReceptionAgent completed output: script
+<task>
+Update the position of all employees whose hire year is 2025 to "Intern".
+</task>
+### ScriptAgent input:
+Update the position of all employees whose hire year is 2025 to "Intern".
+### ScriptAgent outout (attempt 1):
+var employeesOperator = blazorMainAppOperator.GetEmployeesOperator();
+var employees = employeesOperator.GetEmployees();
+foreach (var employee in employees)
+{
+    if (employee.HireDate.Year == 2025)
+    {
+        employee.Position = "Intern";
+        var editOperator = employeesOperator.GetEmployeeEditingOperator(employee.Id);
+        editOperator.UpdateEmployee(employee);
+    }
+}

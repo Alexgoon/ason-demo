@@ -1,0 +1,218 @@
+﻿::deep .welcome-gridlayout {
+    margin: auto;
+    width: auto;
+    height: auto;
+}
+
+::deep .welcome-gridlayout .dxbl-gridlayout-root {
+    align-content: center;
+    justify-content: center;
+}
+
+::deep .title {
+    text-align: center;
+}
+
+::deep .welcome-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+::deep .welcome-card {
+    width: 26.25rem;
+    height: 15rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -2px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s;
+    border-radius: 1rem;
+    color: var(--bs-link-color, var(--DS-primary-90));
+    gap: 1.5rem;
+    text-decoration: none;
+    position: relative;
+}
+
+::deep .welcome-card:hover {
+    box-shadow: 0px 20px 25px -5px rgba(0, 0, 0, 0.1), 0px 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+::deep .welcome-card .welcome-card-img {
+    width: 6.5rem;
+    height: 6.5rem;
+}
+
+::deep .welcome-card .welcome-card-text {
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: 0em;
+    text-align: center;
+    text-decoration: unset;
+}
+
+::deep .welcome-card .welcome-card-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bs-body-color, var(--DS-color-content-neutral-default-rest));
+    opacity: 0.05;
+    border-radius: 1rem;
+    z-index: -2;
+}
+
+.home-hero {
+    position: relative;
+    margin: 1rem;
+    padding: 0;
+    background: url('images/header.png') center/cover no-repeat;
+    border: 1px solid rgba(0,0,0,.08);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.hero-container {
+    position: relative;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+    min-height: 220px;
+}
+
+.hero-left-block {
+    position: absolute;
+    top: 1rem;
+    left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+}
+
+.hero-title {
+    font: 700 2rem "Segoe UI";
+    margin: 0;
+    color: #374151;
+    text-shadow: 0 1px 2px rgba(255,255,255,.5);
+}
+
+.hero-note {
+    font: 600 .8rem "Segoe UI";
+    letter-spacing: .25rem;
+    text-transform: uppercase;
+    background: rgba(255,255,255,.75);
+    padding: .35rem .55rem;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px -1px rgba(0,0,0,.25);
+}
+
+.github-btn {
+    position: absolute;
+    bottom: 1rem;
+    right: 1.25rem;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,.15);
+    font: .8rem "Segoe UI";
+    padding: .6rem .95rem;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    font-weight: 500;
+    color: #222;
+    text-decoration: none;
+    box-shadow: 0 2px 6px -2px rgba(0,0,0,.25);
+}
+
+    .github-btn:hover {
+        border-color: rgba(0,0,0,.35);
+    }
+
+.prompt-section {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 3rem;
+}
+
+.prompt-group-title {
+    font: 600 1.05rem "Segoe UI";
+    margin: 0 0 .85rem;
+    color: #1f2937;
+}
+
+/* Prompt card visual + fixed height */
+.prompt-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    transition: background-color .08s ease, border-color .08s ease, transform .08s ease;
+    cursor: pointer;
+    box-shadow: 0 0 3px #E6E6E6;
+    height: 120px; /* fixed height */
+    display: block; /* remove flex to allow line clamp to function */
+}
+
+    .prompt-card:hover {
+        background: #f9f9f9;
+        border-color: #d0d7de;
+    }
+
+    .prompt-card:active {
+        background: #eef1f4;
+        transform: translateY(1px);
+    }
+
+/* Multiline clamp with ellipsis */
+.prompt-text {
+    font-size: 1.0rem;
+    line-height: 1.25rem;
+    font-family: 'Segoe UI';
+    color: #464646;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-clamp: 4;
+}
+
+/* Ensure Bootstrap card-body doesn't stretch spacing oddly */
+.prompt-card .card-body {
+    padding: .85rem .95rem;
+    /* removed flex so clamping works consistently */
+}
+
+hr.group-separator {
+    border: 0;
+    height: 1px;
+    background: #e5e7eb;
+    margin: 1.75rem 0 2rem;
+}
+
+@media (max-width:992px) {
+    .hero-left-block {
+        position: static;
+        padding: 1.25rem 0 0;
+    }
+
+    .hero-container {
+        padding: 1.25rem;
+        min-height: 0;
+    }
+
+    .github-btn {
+        position: static;
+        margin-top: 1rem;
+    }
+
+    .home-hero {
+        padding-bottom: 1.25rem;
+    }
+    
+    /* Allow a little taller cards on narrow screens if wrapping causes issues */
+    .prompt-card { height: 130px; }
+}

@@ -1,0 +1,137 @@
+@page "/charts"
+@inject SessionState Session
+@implements IDisposable
+@using AsonDemo.Ason
+
+@if (!_loaded) {
+    <div class="p-3"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>
+}
+else {
+    <div style="height:100%;display:flex;flex-direction:column; padding:20px;">
+        <h5>Charts</h5>
+        @if (BarValues.Count == 0 && LineValues.Count == 0 && PieValues.Count == 0) {
+            <div class="text-muted m-3">Ask the agent to generate a chart from the app’s data</div>
+        }
+        else {
+            <div style="    border: 1px solid var(--bs-border-color,#dcdcdc);
+                    border-radius: 4px;
+                    box-shadow: 0 0px 4px 0 rgba(0,0,0,.05); width:100%; height:100%; padding: 10px;">
+                @if (BarValues.Count > 0) {
+                    <DxChart T="BarValue" Data="BarValues" Width="100%" Height="100%">
+                        <DxChartLegend Visible="false" />
+                        <DxChartTitle Text="@ChartTitle" />
+                        <DxChartArgumentAxis ArgumentType="ChartAxisDataType.String">
+                            <DxChartAxisTitle Text="@_xAxisCaption" HorizontalAlignment="HorizontalAlignment.Center" />
+                        </DxChartArgumentAxis>
+                        <DxChartValueAxis Visible="true">
+                            <DxChartAxisTitle Text="@_yAxisCaption" HorizontalAlignment="HorizontalAlignment.Center" />
+                            <DxChartAxisLabel Visible="false" />
+                            <DxChartAxisTick Visible="false" />
+                            <DxChartAxisMinorTick Visible="false" />
+                            <DxChartAxisGridLines Visible="false" />
+                        </DxChartValueAxis>
+                        <DxChartBarSeries T="BarValue"
+                                          TArgument="string"
+                                          TValue="object"
+                                          Name=""
+                                          ArgumentField="dataItem => dataItem.Caption"
+                                          ValueField="dataItem => dataItem.Value">
+                            <DxChartSeriesLabel Visible="true" />
+                        </DxChartBarSeries>
+                    </DxChart>
+                }
+                else if (LineValues.Count > 0) {
+                    <DxChart T="LineValue" Data="LineValues" Width="100%" Height="100%">
+                        <DxChartLegend Visible="false" />
+                        <DxChartTitle Text="@ChartTitle" />
+                        <DxChartArgumentAxis ArgumentType="ChartAxisDataType.String">
+                            <DxChartAxisTitle Text="@_xAxisCaption" HorizontalAlignment="HorizontalAlignment.Center" />
+                        </DxChartArgumentAxis>
+                        <DxChartValueAxis Visible="true">
+                            <DxChartAxisTitle Text="@_yAxisCaption" HorizontalAlignment="HorizontalAlignment.Center" />
+                            <DxChartAxisLabel Visible="true" />
+                            <DxChartAxisTick Visible="false" />
+                            <DxChartAxisMinorTick Visible="false" />
+                            <DxChartAxisGridLines Visible="true" />
+                        </DxChartValueAxis>
+                        <DxChartLineSeries T="LineValue"
+                                           TArgument="object"
+                                           TValue="object"
+                                           Name=""
+                                           ArgumentField="dataItem => dataItem.xValue"
+                                           ValueField="dataItem => dataItem.yValue">
+                            <DxChartSeriesLabel Visible="false" />
+                        </DxChartLineSeries>
+                        <DxChartTooltip Enabled="true" Position="RelativePosition.Outside">
+                            <div style="margin: 0.75rem">
+                                <div>Value: @context.Point.Value</div>
+                                <div>Argument: @context.Point.Argument</div>
+                            </div>
+                        </DxChartTooltip>
+                    </DxChart>
+                }
+                else if (PieValues.Count > 0) {
+                    <DxPieChart Data="@PieValues"
+                                InnerDiameter="0"
+                                Width="100%"
+                                Height="100%"
+                                T="PieValue">
+                        <DxPieChartSeries T="PieValue"
+                                          TArgument="string"
+                                          TValue="object"
+                                          ValueField="dataItem => dataItem.Value"
+                                          ArgumentField="dataItem => dataItem.Category">
+                            <DxChartSeriesLabel Visible="true"
+                                                Position="RelativePosition.Outside"
+                                                FormatPattern="{argument}: {value}">
+                                <DxChartSeriesLabelConnector Visible="true" />
+                            </DxChartSeriesLabel>
+                        </DxPieChartSeries>
+                        <DxChartTitle Text="@ChartTitle" />
+                        <DxChartLegend Visible="false" />
+                    </DxPieChart>
+                }
+            </div>
+        }
+    </div>
+}
+
+@code {
+    bool _loaded;
+    string? _xAxisCaption;
+    string? _yAxisCaption;
+    public string? ChartTitle;
+    public List<BarValue> BarValues { get; set; } = new();
+    public List<LineValue> LineValues { get; set; } = new();
+    public List<PieValue> PieValues { get; set; } = new();
+
+    protected override async Task OnInitializedAsync() {
+        await Session.EnsureSeededAsync();
+        _loaded = true;
+        Session.MainAppOperator.AttachChildOperator<ChartsOperator>(this);
+    }
+
+    public void Dispose() => Session.MainAppOperator.DetachChildOperator<ChartsOperator>();
+
+    public void AddBarChart(BarValue[] barValues, string xAxisCaption, string yAxisCaption, string shortTitle) {
+        BarValues = barValues.ToList();
+        _xAxisCaption = xAxisCaption;
+        _yAxisCaption = yAxisCaption;
+        ChartTitle = shortTitle;
+        StateHasChanged();
+    }
+
+    public void AddLineChart(LineValue[] barValues, string xAxisCaption, string yAxisCaption, string shortTitle) {
+        LineValues = barValues.ToList();
+        _xAxisCaption = xAxisCaption;
+        _yAxisCaption = yAxisCaption;
+        ChartTitle = shortTitle;
+        StateHasChanged();
+    }
+
+    public void AddPieChart(PieValue[] pieValues, string shortTitle) {
+        PieValues = pieValues.ToList();
+        ChartTitle = shortTitle;
+        StateHasChanged();
+    }
+}

@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Mvc.ViewFeatures
+@using AsonDemo.Services
+@inject DxThemesService ThemesService
+
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="@(ThemesService.IsBootstrapDarkActive ? "dark" : null)" data-fluent-darkmode="@(ThemesService.IsFluentDarkModeActive ? "" : null)">
+
+<head>
+    <meta charset="utf-8" />
+    <base href="/" />
+    @DxResourceManager.RegisterTheme(ThemesService.ActiveTheme)
+    @DxResourceManager.RegisterScripts()
+    <link href="@Assets["css/bootstrap/bootstrap.min.css"]" rel="stylesheet" />
+    <link href="@Assets["css/site.css"]" rel="stylesheet" />
+    <link href="@Assets["AsonDemo.styles.css"]" rel="stylesheet" />
+    <ImportMap />
+    <HeadOutlet @rendermode="InteractiveServer" />
+</head>
+<body>
+    <Routes @rendermode="InteractiveServer" />
+    <script src="@Assets["_framework/blazor.web.js"]"></script>
+</body>
+
+</html>
+
+@code{
+}

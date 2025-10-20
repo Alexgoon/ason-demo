@@ -1,6 +1,6 @@
 # ASON Demo
 
-This repository contains the [ASON online demo](https://ason-demo-web--app-resource-cecsbjgqamhmfzcf.centralus-01.azurewebsites.net/). To learn more about ASON, refer to the main [ASON repository](https://github.com/Alexgoon/ason).
+This repository contains the [ASON online demo](https://ason-demo-linux-hegxhud6c8cmfkfm.centralus-01.azurewebsites.net/). To learn more about ASON, refer to the main [ASON repository](https://github.com/Alexgoon/ason).
 
 ## Running the Demo
 

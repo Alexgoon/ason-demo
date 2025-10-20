@@ -6,7 +6,7 @@ This repository contains the [ASON online demo](https://ason-demo-web--app-resou
 
 While ASON is a fully open-source and free library, the demo requires a few additional products/services to run on your machine:
 
-- **OpenAI**: You’ll need an [OpenAI API key](https://platform.openai.com/api-keys). You can either add it to the `MY_OPEN_AI_KEY` environment variable or use it directly in the `Program.cs` file.  
+- **OpenAI**: You’ll need an [OpenAI API key](https://platform.openai.com/api-keys). You can either add it to the `MY_OPEN_AI_KEY` environment variable or use it directly in the [Program.cs](https://github.com/Alexgoon/ason-demo/blob/1408ff463aba31b355310f7c82ca8a628a0350c7/src/Program.cs#L26) file.  
 - **DevExpress**: The demo uses [DevExpress Blazor components](https://www.devexpress.com/blazor/) for the UI. To build it, you need a DevExpress subscription or a [free trial account](https://www.devexpress.com/Products/Try/) with a configured [DevExpress NuGet feed](https://nuget.devexpress.com/). The easiest way to set this up is through the DevExpress installer.
 
 ![Ason DEMO](ason-demo-preview.png)
